@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #F3F3F3;
+    font-family: 'Roboto', sans-serif;
+}
+main {
+    padding: 90px 10px;
+}
+strong {
+    font-weight: 700;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 80px;
+    width: 100%;
+    padding: 20px;
+
+    position: fixed;
+
+    background: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+    
+}
+input {
+    border: none;
+    font-style: italic;
+}
+
+span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    padding: 20px;
+
+    position: fixed;
+    bottom: 0;
+    
+    background: #FFFFFF;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);    
+}
+
+span ion-icon {
+    font-size: 26px;
+}
+
+.normal {
+    background: #FFFFFF;
+}
+
+.private {
+    background: #FFDEDE;
+}
+
+.status {
+    background: #DCDCDC;
+}
+
+.time {
+    color: slategray;
+}
+
+p {
+    padding: 20px;
+}
