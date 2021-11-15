@@ -32,7 +32,7 @@ input {
     font-style: italic;
 }
 
-span {
+.type-here {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,10 +44,10 @@ span {
     bottom: 0;
     
     background: #FFFFFF;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.2);    
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);    
 }
 
-span ion-icon {
+.type-here ion-icon {
     font-size: 26px;
 }
 
@@ -68,5 +68,9 @@ span ion-icon {
 }
 
 p {
-    padding: 20px;
+    padding: 10px;
+}
+
+main > div {
+    margin: 10px;
 }
