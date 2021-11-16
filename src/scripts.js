@@ -12,13 +12,14 @@ var username = "" //this stores the username for use in multiple functions
 enterRoom();
 userStatus();
 
-//maintain connection (check every 5s, setInterval?) (POST)
+// ♥ maintain connection
 setInterval(userStatus, 5000);
 function userStatus() {
     const name = username;
-    const pStatus = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', 
-    { name
-    }
+    const pStatus = axios.post('https://mock-api.driven.com.br/api/v4/uol/status',
+        {
+            name
+        }
     )
 }
 
@@ -53,14 +54,16 @@ function sendMessage() {
     const to = 'Todos';
     const text = document.querySelector("input").value;
     const type = 'message';
+    console.log(from);
+    console.log(text);
 
     const pSend = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',
-    {
-        from,
-        to,
-        text,
-        type
-    }
+        {
+            from,
+            to,
+            text,
+            type
+        }
     )
     //make typed stuff disappear
 
@@ -83,65 +86,59 @@ function usernameError(status) {
 }
 
 function renderMessage(from, to, text, type, time) {
-    if (type === 'message') {
-        if (type == 'private_message') {
-            if(to == username){
-                main.innerHTML +=
+    if (type === 'private_message') {
+        if (to === username) {
+            main.innerHTML +=
                 `
-        <div class="private">
+        <div class="private" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> reservadamente para <strong>${to}</strong>: ${text}</p>
         </div>
     `;
-            }
-        } else {
-            main.innerHTML +=
-                `
-        <div class="normal">
+        }
+    } else if (type === 'message') {
+        main.innerHTML +=
+            `
+        <div class="normal" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> para <strong>${to}</strong>: ${text}</p>
         </div>
     `;
-        }
-
     } else if (type === 'status') {
         main.innerHTML +=
             `
-        <div class="${type}">
+        <div class="${type}" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> ${text}</p>
         </div>
     `;
     }
 
 }
-
 function renderLastMessage(from, to, text, type, time) {
-    if (type === 'message') {
-        if (to !== 'Todos') {
+    if (type === 'private_message') {
+        if (to === username) {
             main.innerHTML +=
                 `
-        <div class="private last-message">
+        <div class="private last-message" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> reservadamente para <strong>${to}</strong>: ${text}</p>
         </div>
     `;
-        } else {
-            main.innerHTML +=
-                `
-        <div class="normal last-message">
+        }
+    } else if (type === 'message') {
+        main.innerHTML +=
+            `
+        <div class="normal last-message" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> para <strong>${to}</strong>: ${text}</p>
         </div>
     `;
-        }
-
-    } else if (type === 'status last-message') {
+    } else if (type === 'status') {
         main.innerHTML +=
             `
-        <div class="${type}">
+        <div class="${type} last-message" data-identifier="message">
             <p><span class="time">(${time}) </span> <strong>${from}</strong> ${text}</p>
         </div>
     `;
     }
 
 }
-
 
 function fetchSingularMessage(response) {
     //access last item
@@ -158,7 +155,7 @@ function fetchSingularMessage(response) {
     renderMessage(from, to, text, type, time);
 }
 
-function fetchMessages(response){
+function fetchMessages(response) {
     //clear previous fetchMessages
     main.innerHTML = `
 
@@ -167,18 +164,17 @@ function fetchMessages(response){
     //get lenght of array
     const messages = response.data;
     //call each message
-    for(let i = 0; i < messages.length; i++) {
+    for (let i = 0; i < messages.length; i++) {
         const from = messages[i].from;
         const to = messages[i].to;
         const text = messages[i].text;
         const type = messages[i].type;
         const time = messages[i].time;
         renderMessage(from, to, text, type, time);
-        if(i == messages.length-1){
+        if (i == messages.length) {
             renderLastMessage(from, to, text, type, time);
         }
     }
-
-    document.querySelector('last-message').scrollIntoView;
+    document.querySelector('.last-message').scrollIntoView;
 
 }
