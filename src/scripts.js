@@ -10,7 +10,6 @@ loadMessages();
 // ♥ enter room (POST) 
 var username = "" //this stores the username for use in multiple functions
 enterRoom();
-userStatus();
 
 // ♥ maintain connection
 setInterval(userStatus, 5000);
@@ -75,6 +74,7 @@ function sendSuccess(response) {
     //grab info from messages api
     const pMessages = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
     pMessages.then(fetchSingularMessage);
+    userStatus();
 
 }
 
