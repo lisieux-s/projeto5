@@ -65,8 +65,12 @@ function sendMessage() {
         }
     )
     //make typed stuff disappear
+    document.querySelector('input.text').value = '';
 
     pSend.then(sendSuccess);
+    pSend.catch(function(){
+        window.location.reload();
+    })
 }
 
 //success:
