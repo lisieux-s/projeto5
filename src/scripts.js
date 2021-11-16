@@ -65,7 +65,7 @@ function sendMessage() {
         }
     )
     //make typed stuff disappear
-    document.querySelector('input.text').value = '';
+    document.querySelector('input').value = '';
 
     pSend.then(sendSuccess);
     pSend.catch(function(){
